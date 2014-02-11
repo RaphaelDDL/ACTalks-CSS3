@@ -52,8 +52,7 @@
 					<li>Child Selectors</li>
 					<li>Attribute Selectors</li>
 					<li>Simbling Selectors</li>
-					<li>Pseudo-classes</li>
-					<li>Structural Pseudo-classes</li>
+					<li>Pseudo-classes + Structural Pseudo-classes</li>
 					<li>Negation Pseudo-class</li>
 					<li>Pseudo-elements</li>
 					<li>New Properties</li>
@@ -70,896 +69,658 @@
 					Intermediary CSS knowledge
 				</p>
 			</section>
-			<section>
-				<h2><i class="fa fa-html5"></i> What HTML5 aims</h2>
-
-				<ul>
-					<li class="fragment">Increased separation markup from styling;</li>
-					<li class="fragment">Documented error handling, by defining detailed parsing rules;</li>
-					<li class="fragment">Deepens into Web Application, by implementing new APIs, elements and other resources that were previously only available through Flash, Java Applets or JS Hacks; <strong class="fontOrange">&sup1;</strong></li>
-					<li class="fragment">More semantic!</li>
-				</ul>
-
-				<p class="small alignLeft fragment"><strong class="fontOrange">&sup1;</strong>: App Cache/Manifest, contenteditable, data-*, role / aria-*, JS APIs such as Geolocation, Session and Local Storages, History/PushState, Audio/Video media, Canvas, Draggable/Droppable. Not covered in this presentation.</p>
-			</section>
-
 
 			<!-- =============================================
-			Section: Notable differences
+			Section: Basic Selectors
 			================================================== -->
 			<section>
 				<section>
-					<h2><i class="fa fa-exclamation-circle"></i> Notable differences</h2>
+					<h2> Basic Selectors</h2>
 
-					<h4>DOCTYPE</h4>
+					<h4>Identifier (<span class="fontOrange">#</span>)</h4>
 
-<pre class="prettyprint linenums lang-html noConvert"><code>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot; &quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;
-
-&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;
-
-&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;</code></pre>
-					<p>All became</p>
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;!DOCTYPE html&gt;</code></pre>
-					<p class="small alignLeft">Doctype was simplified and now it's only used to enable Standards Mode for HTML documents.</p>
-				</section>
-
-				<section>
-					<h2><i class="fa fa-exclamation-circle"></i> Notable differences</h2>
-
-					<h4>Easier Rules</h4>
-
-					<p class="small alignLeft">No enforced trailing slashes on the 'self-closing' elements</p>
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;!-- xHTML --&gt;
-&lt;img src=&quot;path/to/img.ext&quot; alt=&quot;&quot; /&gt;
-&lt;br /&gt;
-
-&lt;!-- HTML5 --&gt;
-&lt;img src=&quot;path/to/img.ext&quot; alt=&quot;&quot;&gt;
-&lt;br&gt;</code></pre>
-				</section>
-
-				<section>
-					<h2><i class="fa fa-exclamation-circle"></i> Notable differences</h2>
-
-					<h4>Easier Rules</h4>
-
-					<p class="small alignLeft">Elements can have empty attributes without writing <strong>=""</strong></p>
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;!-- xHTML --&gt;
-&lt;input type=&quot;text&quot; required=&quot;required&quot; autofocus=&quot;autofocus&quot; /&gt;
-
-&lt;!-- HTML5 --&gt;
-&lt;input type=&quot;text&quot; required autofocus&gt;</code></pre>
-				</section>
-
-				<section>
-					<h2><i class="fa fa-exclamation-circle"></i> Notable differences</h2>
-
-					<h4>Easier Rules</h4>
-
-					<p class="small alignLeft">Elements can have attributes without quotes (<strong>""</strong>)</p>
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;!-- xHTML --&gt;
-&lt;input type=&quot;text&quot; placeholder=&quot;username&quot; /&gt;
-
-&lt;!-- HTML5 --&gt;
-&lt;input type=text placeholder=username &gt;</code></pre>
-					<div class="fragment">
-						<p class="small alignLeft">But quotes are still needed for values which have spaces (like multiple classes) or else the values after the spaces will become (invalid) attributes.</p>
-
-						<pre class="prettyprint linenums lang-html noConvert"><code>&lt;input type=text class=myForm formPretty coolForm&gt;
-&lt;!-- =/= --&gt;
-&lt;input type=text class="myForm formPretty coolForm"&gt;</code></pre>
-					</div>
-				</section>
-
-				<section>
-					<h2><i class="fa fa-exclamation-circle"></i> Notable differences</h2>
-
-					<h4>Strict Rules</h4>
-
-					<p class="small alignLeft">No parser normalization</p>
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;input type=&quot;text&quot; id=&quot; someIdWithSpaces &quot; /&gt;</code></pre>
-					<p class="small alignLeft">This is no more trimmed/ignored and now count as an error, that is, invalid html.</p>
-				</section>
-			</section>
-
-
-			<!-- =============================================
-			Section: Element Semantic Changes
-			================================================== -->
-			<section>
-				<section>
-					<h2><i class="fa fa-exchange"></i> Element Semantic Changes</h2>
-
-					<h4>The &lt;i&gt; element</h4>
-
-					<p class="small alignLeft">Used for <i>italic</i> presentation, now represents a span of text in an alternate voice/mood, technical term, phrase in another language or thoughts..</p>
-					<p class="small alignLeft">For terms in different languages, it should be used with lang attribute.</p>
-					<p class="small alignLeft">Examples:</p>
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;p&gt;The &lt;i class=&quot;taxonomy&quot;&gt;Felis silvestris catus&lt;/i&gt; is cute.&lt;/p&gt;
-
-&lt;p&gt;The term &lt;i&gt;prose content&lt;/i&gt; is defined above.&lt;/p&gt;
-
-&lt;p&gt;There is a certain &lt;i lang=&quot;fr&quot;&gt;je ne sais quoi&lt;/i&gt; in the air.&lt;/p&gt;</code></pre>
-				</section>
-
-				<section>
-					<h2><i class="fa fa-exchange"></i> Element Semantic Changes</h2>
-
-					<h4>The &lt;em&gt; element</h4>
-
-					<p class="small alignLeft">Used for <em>emphasis</em> presentation, now represents a stress emphasis, i.e., something you'd pronounce differently. A statement of fact, with no stress:</p>
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;p&gt;Cats are cute animals.&lt;/p&gt;</code></pre>
-
-					<div class="fragment">
-						<p class="small alignLeft">By emphasizing the first word, the statement implies that the kind of animal under discussion is in question (maybe someone is asserting that dogs are cute):</p>
-						<pre class="prettyprint linenums lang-html noConvert"><code>&lt;p&gt;&lt;em&gt;Cats&lt;/em&gt; are cute animals.&lt;/p&gt;</code></pre>
-					</div>
-					<div class="fragment">
-						<p class="small alignLeft">Moving the stress to the verb, one highlights that the truth of the entire sentence is in question (maybe someone is saying cats are not cute):</p>
-						<pre class="prettyprint linenums lang-html noConvert"><code>&lt;p&gt;Cats &lt;em&gt;are&lt;/em&gt; cute animals.&lt;/p&gt;</code></pre>
-					</div>
-				</section>
-
-				<section>
-					<h2><i class="fa fa-exchange"></i> Element Semantic Changes</h2>
-
-					<h4>The &lt;b&gt; element</h4>
-
-					<p class="small alignLeft">Used for <b>bold</b> presentation, now represents a "stylistically offset", that is, something that is only to drawn attention without any other importance, such as keywords, product words in a review, etc.</p>
-
-					<div class="fragment">
-						<p class="small alignLeft">Use of the b element to highlight key words without marking them up as important:</p>
-						<pre class="prettyprint linenums lang-html noConvert"><code>&lt;p&gt;The &lt;b&gt;Handlebars&lt;/b&gt; and &lt;b&gt;requireJS&lt;/b&gt; presentations were awesome!&lt;/p&gt;</code></pre>
-					</div>
-					<div class="fragment">
-						<p class="small alignLeft">In the following example, objects in a text adventure are highlighted as being special by use of the b element:</p>
-						<pre class="prettyprint linenums lang-html noConvert"><code>&lt;p&gt;You enter a small room. Your &lt;b&gt;sword&lt;/b&gt; glows brighter. You feel a chill down your spine, as you sense &lt;b&gt;orcs&lt;/b&gt; sleep in the corner wall.&lt;/p&gt;</code></pre>
-					</div>
-				</section>
-
-				<section>
-					<h2><i class="fa fa-exchange"></i> Element Semantic Changes</h2>
-
-					<h4>The &lt;strong&gt; element</h4>
-
-					<p class="small alignLeft">Used for strong emphasis, now represents <strong>importance, seriouness and urgent</strong>. It does not change the meaning of the phrase like em but highlights the most important part.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;p&gt;&lt;strong&gt;Warning.&lt;/strong&gt; This dungeon is dangerous. &lt;strong&gt;Avoid the ducks.&lt;/strong&gt; Take any gold you find. &lt;strong&gt;Do not take any of the diamonds&lt;/strong&gt;, they are explosive and &lt;strong&gt;will destroy anything within ten meters.&lt;/strong&gt; You have been warned.&lt;/p&gt;</code></pre>
-
-					<div class="fragment">
-						<p class="small alignLeft">A more daily use, the word "chapter" and the actual chapter number are mere boilerplate, and the actual name of the chapter is marked up with strong:</p>
-						<pre class="prettyprint linenums lang-html noConvert"><code>&lt;h1&gt;Chapter 1: &lt;strong&gt;What HTML 5 aims&lt;/strong&gt;&lt;/h1&gt;</code></pre>
-					</div>
-				</section>
-			</section>
-
-
-			<!-- =============================================
-			Section: Structure
-			================================================== -->
-			<section>
-				<section>
-					<h2><i class="fa fa-table"></i> Structure</h2>
-
-					<h4>The new elements</h4>
-
-					<img src="./assets/img/HTML5_website_structure.jpg" alt="" width="580" height="400" />
-					<p class="xsmall alignCenter">Image from m5designstudio.com</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>#myElement {
+	/*css*/
+}</code></pre>
+<pre class="prettyprint linenums lang-html"><code><div id="myElement"></div></code></pre>
+					<p class="small alignLeft">Matches an element with named identifier 'myElement'.</p>
 				</section>
 				<section>
-					<h2><i class="fa fa-table"></i> Structure</h2>
+					<h2> Basic Selectors</h2>
 
-					<h4>The &lt;header&gt; element</h4>
+					<h4>Classes (<span class="fontOrange">.</span>)</h4>
 
-					<p class="small alignLeft clearfix">The header element contains introductory information to a section or page. This can involve anything from our normal documents headers (branding information) to an entire table of contents.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;header&gt;
-	&lt;h1 class=&quot;logo&quot;&gt;
-		&lt;a href=&quot;#&quot;&gt;My Brand&lt;/a&gt;
-	&lt;/h1&gt;
-	&lt;nav&gt;
-		&lt;!-- navigation contents --&gt;
-	&lt;/nav&gt;
-&lt;/header&gt;</code></pre>
+<pre class="prettyprint linenums lang-css noConvert"><code>.myElementClass {
+	/*css*/
+}</code></pre>
+<pre class="prettyprint linenums lang-html"><code><div class="myElementClass"></div></code></pre>
+					<p class="small alignLeft">Matches all elements which have class 'myElementClass'.</p>
 				</section>
 				<section>
-					<h2><i class="fa fa-table"></i> Structure</h2>
+					<h2> Basic Selectors</h2>
 
-					<h4>The &lt;nav&gt; element</h4>
+					<h4>Element (<span class="fontOrange">tagname</span>)</h4>
 
-					<p class="small alignLeft">The nav element is reserved for a section of a document that contains links to other pages or links to sections of the same page. Not all link groups need to be contained within the &lt;nav&gt; element, just primary navigation.
-</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;nav&gt;
-	&lt;ul&gt;
-		&lt;li&gt;
-			&lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt;
-		&lt;/li&gt;
-		&lt;li&gt;
-			&lt;a href=&quot;#&quot;&gt;Products&lt;/a&gt;
-		&lt;/li&gt;
-		&lt;li&gt;
-			&lt;a href=&quot;#&quot;&gt;Another navigation link&lt;/a&gt;
-		&lt;/li&gt;
-	&lt;/ul&gt;
-&lt;/nav&gt;</code></pre>
-				</section>
-				<section>
-					<h2><i class="fa fa-table"></i> Structure</h2>
-
-					<h4>The &lt;aside&gt; element</h4>
-
-					<p class="small alignLeft">Aside, represents content related to the main area of the document. This is usually expressed in sidebars that contain elements like related posts, tag clouds, etc - that is, slightly related to the rest of the page. They can also be used for pull quotes.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;section&gt;
-	&lt;article&gt;
-		&lt;!-- blog post here --&gt;
-	&lt;/article&gt;
-&lt;/section&gt;
-&lt;aside&gt;
-	&lt;h4&gt;See also&lt;/h4&gt;
-	&lt;ul&gt;
-		&lt;li&gt;
-			&lt;a href=&quot;#&quot;&gt;Some other post&lt;/a&gt;
-		&lt;/li&gt;
-	&lt;/ul&gt;
-&lt;/aside&gt;</code></pre>
-				</section>
-				<section>
-					<h2><i class="fa fa-table"></i> Structure</h2>
-
-					<h4>The &lt;main&gt; element</h4>
-
-					<p class="small alignLeft">The main content of the body of a document or application. The main content area consists of content that is directly related to or expands upon the central topic of a document or central functionality of an application <em>(just one per page)</em>.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;body&gt;
-	&lt;header&gt;&lt;/header&gt;
-	&lt;main&gt;
-		&lt;section&gt;
-		&lt;/section&gt;
-		&lt;!-- other sections --&gt;
-		&lt;aside&gt;
-		&lt;/aside&gt;
-	&lt;/main&gt;
-	&lt;footer&gt;&lt;/footer&gt;
-&lt;/body&gt;</code></pre>
-				</section>
-				<section>
-					<h2><i class="fa fa-table"></i> Structure</h2>
-
-					<h4>The &lt;section&gt; element</h4>
-
-					<p class="small alignLeft">The section element represents a generic document or application section. It acts much the same way a &lt;div&gt; does by separating off a portion of the document.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;main&gt;
-	&lt;section&gt;
-		&lt;h2&gt;My website section - about&lt;/h2&gt;
-		&lt;p&gt;content&lt;/p&gt;
-	&lt;/section&gt;
-	&lt;section&gt;
-		&lt;h2&gt;My website section - contact&lt;/h2&gt;
-		&lt;p&gt;content&lt;/p&gt;
-	&lt;/section&gt;
-&lt;/main&gt;</code></pre>
-				</section>
-				<section>
-					<h2><i class="fa fa-table"></i> Structure</h2>
-
-					<h4>The &lt;article&gt; element</h4>
-
-					<p class="small alignLeft">The article element represents a portion of a page which can stand alone such as: a blog post, a forum entry, user submitted comments or any independent item of content.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;main&gt;
-	&lt;section&gt;
-		&lt;article&gt;
-			&lt;h1&gt;My blog post&lt;/h1&gt;
-			&lt;p&gt;blog content&lt;/p&gt;
-		&lt;/article&gt;
-		&lt;article&gt;
-			&lt;h1&gt;another blog post&lt;/h1&gt;
-			&lt;p&gt;another blog content&lt;/p&gt;
-		&lt;/article&gt;
-	&lt;/section&gt;
-&lt;/main&gt;</code></pre>
-				</section>
-				<section>
-					<h2><i class="fa fa-table"></i> Structure</h2>
-
-					<h4>The &lt;footer&gt; element</h4>
-
-					<p class="small alignLeft">The footer element is for marking up the footer of, not only the current page, but each section contained in the page. So, it’s very likely that you’ll be using the &lt;footer&gt; element multiple times within one page.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;body&gt;
-	&lt;header&gt;&lt;/header&gt;
-	&lt;main&gt;
-		&lt;section&gt;&lt;/section&gt;
-		&lt;aside&gt;&lt;/aside&gt;
-	&lt;/main&gt;
-	&lt;footer&gt;
-		&reg; Copyright 20XX - All rights reserved.
-	&lt;/footer&gt;
-&lt;/body&gt;</code></pre>
-				</section>
-				<section>
-					<h2><i class="fa fa-table"></i> Structure</h2>
-
-					<h4>Example Page</h4>
-
-					<img src="./assets/img/liveplayer.png" alt="" width="550" height="311" />
-
-					<p class="small">
-						<a href="http://www.liveplayer.com.br" target="_blank">LivePlayer</a>
-					</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>div {
+	/*css*/
+}</code></pre>
+<pre class="prettyprint linenums lang-html"><code><div id="myElement" class="myElement"></div></code></pre>
+					<p class="small alignLeft">Matches all element which tag name is 'div'.</p>
 				</section>
 			</section>
 
 			<!-- =============================================
-			Section: FORMS
+			Section: Child Selectors
 			================================================== -->
 			<section>
 				<section>
-					<h2><i class="fa fa-edit"></i> Forms</h2>
+					<h2> Child Selectors</h2>
 
-					<p class=" alignLeft">The form has received a significant amount of updates and new items, enabling better control and validation that were previously made using JavaScript as well as better usability.</p>
-					<!-- <p class="small alignLeft">JS is still needed while the support isn't wide but the good point is that most of those are already implemented in the mobile browsers as they highly increase the usability while filling a form.</p> -->
-					<br />
-					<br />
-					<br />
-					<br />
-					<p class="small alignLeft alert alert-info"><strong>Notice:</strong> Browsers that do not support the new types/attributes will fallback to the standard type="text".</p>
-				</section>
-
-				<section>
-					<h2><i class="fa fa-edit"></i> Forms</h2>
-
-					<h4>The "tel" type</h4>
-
-					<p class="small alignLeft clearfix">Used for telephone input.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;input type=&quot;tel&quot; placeholder=&quot;9999-9999&quot; /&gt;</code></pre>
-
-					<form action="#" class="form">
-						<div class="form-group col-sm-5">
-							<p class="alignLeft xsmall">Desktop</p>
-							<input type="tel" class="form-control" placeholder="9999-9999" pattern="\d" />
-						</div>
-						<div class="col-sm-5 col-sm-offset-1">
-							<p class="alignLeft xsmall">Mobile</p>
-							<img src="./assets/img/iphone-form-tel.png" alt="" class="picture" style="width: 50%;" />
-						</div>
-					</form>
+					<h4>Direct Children (<span class="fontOrange">></span>)</h4>
+					<p class="small alignLeft">Consider the following HTML:</p>
+<pre class="prettyprint linenums lang-html noConvert"><code>&lt;ul id=&quot;childExample&quot;&gt;
+	&lt;li&gt;
+		&lt;ul&gt;
+			&lt;li&gt;
+				list inside list
+			&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/li&gt;
+	&lt;li&gt;
+		list
+	&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 				</section>
 				<section>
-					<h2><i class="fa fa-edit"></i> Forms</h2>
+					<h2> Child Selectors</h2>
 
-					<h4>The "email" type</h4>
+					<h4>Direct Children (<span class="fontOrange">></span>)</h4>
 
-					<p class="small alignLeft clearfix">Used for e-mail input.</p>
+<pre class="prettyprint linenums lang-css"><code>ul#childExample li {
+	/*css*/
+}</code></pre>
+					<p class="small alignLeft">Matches all elements descendant of the previous element (all li inside ul).</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>ul#childExample > li {
+	/*css*/
+}</code></pre>
+					<p class="small alignLeft">Matches all elements direct descendant of the previous element (all li that are direct children of ul#childExample).</p>
+				</section>
+			</section>
 
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;input type=&quot;email&quot; placeholder=&quot;your@email.com&quot; /&gt;</code></pre>
-
-					<form action="#" class="form">
-						<div class="form-group col-sm-5">
-							<p class="alignLeft xsmall">Desktop</p>
-							<input type="email" class="form-control" placeholder="your@email.com" required />
-						</div>
-						<div class="col-sm-5 col-sm-offset-1">
-							<p class="alignLeft xsmall">Mobile</p>
-							<img src="./assets/img/iphone-form-email.png" alt="" class="picture" style="width: 50%;" />
-						</div>
-					</form>
+			<!-- =============================================
+			Section: Attribute Selectors
+			================================================== -->
+			<section>
+				<section>
+					<h2> Attribute Selectors</h2>
+					<h4 class="fontOrange">[attr]</h4>
+					<p class="small alignLeft">Represents an element with an attribute name of attr, not caring for it's value.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>[required] {
+	/*css*/
+}</code></pre>
 				</section>
 				<section>
-					<h2><i class="fa fa-edit"></i> Forms</h2>
-
-					<h4>The "search" type</h4>
-
-					<p class="small alignLeft clearfix">Used for search input.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;input type=&quot;search&quot; placeholder=&quot;Search..&quot; /&gt;</code></pre>
-
-					<form action="#" class="form">
-						<div class="form-group col-sm-5">
-							<p class="alignLeft xsmall">Desktop</p>
-							<input type="search" class="form-control" placeholder="Search.." results="10" />
-						</div>
-						<div class="col-sm-5 col-sm-offset-1">
-							<p class="alignLeft xsmall">Mobile</p>
-							<img src="./assets/img/search.png" alt="" class="picture" style="width: 50%;" />
-						</div>
-					</form>
-				</section>
-
-				<section>
-					<h2><i class="fa fa-edit"></i> Forms</h2>
-
-					<h4>The "url" type</h4>
-
-					<p class="small alignLeft clearfix">Used for url input.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;input type=&quot;url&quot; placeholder=&quot;http://yourwebsite.com&quot; /&gt;</code></pre>
-
-					<form action="#" class="form">
-						<div class="form-group col-sm-5">
-							<p class="alignLeft xsmall">Desktop</p>
-							<input type="url" class="form-control" placeholder="http://yourwebsite.com" required />
-						</div>
-						<div class="col-sm-5 col-sm-offset-1">
-							<p class="alignLeft xsmall">Mobile</p>
-							<img src="./assets/img/iphone_keyboard_type_url.jpg" alt="" class="picture" style="width: 50%;" />
-						</div>
-					</form>
+					<h2> Attribute Selectors</h2>
+					<h4 class="fontOrange">[attr=value]</h4>
+					<p class="small alignLeft">Represents an element with an attribute name of attr and whose value is exactly "value".</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>[controls=true] {
+	/*css*/
+}</code></pre>
+<pre class="prettyprint linenums lang-css noConvert"><code>[title="Title with spaces"] {
+	/*css*/
+}</code></pre>
 				</section>
 				<section>
-					<h2><i class="fa fa-edit"></i> Forms</h2>
-
-					<h4>The "date" type</h4>
-
-					<p class="small alignLeft clearfix">Used for date input.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;input type=&quot;date&quot; /&gt;</code></pre>
-
-					<form action="#" class="form">
-						<div class="form-group col-sm-5">
-							<p class="alignLeft xsmall">Desktop</p>
-							<input type="date" class="form-control" required />
-						</div>
-						<div class="col-sm-5 col-sm-offset-1">
-							<p class="alignLeft xsmall">Mobile</p>
-							<img src="./assets/img/date.png" alt="" class="picture" style="width: 90%;" />
-						</div>
-					</form>
+					<h2> Attribute Selectors</h2>
+					<h4 class="fontOrange">[attr~=value]</h4>
+					<p class="small alignLeft">Represents an element with an attribute name of attr whose value is a whitespace-separated list of words, one of which is exactly "value".</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>[data-keywords~=somekeyword] {
+	/*css*/
+}</code></pre>
 				</section>
 				<section>
-					<h2><i class="fa fa-edit"></i> Forms</h2>
-
-					<h4>The "month" type</h4>
-
-					<p class="small alignLeft clearfix">Used for month input.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;input type=&quot;month&quot; /&gt;</code></pre>
-
-					<form action="#" class="form">
-						<div class="form-group col-sm-5">
-							<p class="alignLeft xsmall">Desktop</p>
-							<input type="month" class="form-control" required />
-						</div>
-						<div class="col-sm-5 col-sm-offset-1">
-							<p class="alignLeft xsmall">Mobile</p>
-							<img src="./assets/img/month.jpg" alt="" class="picture" style="width: 50%;" />
-						</div>
-					</form>
+					<h2> Attribute Selectors</h2>
+					<h4 class="fontOrange">[attr|=value]</h4>
+					<p class="small alignLeft">Represents an element with an attribute name of attr. Its value can be exactly "value" or can begin with "value" immediately followed by "-". It can be used for language subcode matches.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>[lang|=en] {
+	/*css*/
+}</code></pre>
 				</section>
 				<section>
-					<h2><i class="fa fa-edit"></i> Forms</h2>
-
-					<h4>The "week" type</h4>
-
-					<p class="small alignLeft clearfix">Used for week input.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;input type=&quot;week&quot; /&gt;</code></pre>
-
-					<form action="#" class="form">
-						<div class="form-group col-sm-5">
-							<p class="alignLeft xsmall">Desktop</p>
-							<input type="week" class="form-control" required />
-						</div>
-					</form>
+					<h2> Attribute Selectors</h2>
+					<h4 class="fontOrange">[attr^=value]</h4>
+					<p class="small alignLeft">Represents an element with an attribute name of attr and whose value is prefixed by "value".</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>[href^=http] {
+	/*css*/
+}</code></pre>
 				</section>
 				<section>
-					<h2><i class="fa fa-edit"></i> Forms</h2>
-
-					<h4>The "time" type</h4>
-
-					<p class="small alignLeft clearfix">Used for time input.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;input type=&quot;time&quot; /&gt;</code></pre>
-
-					<form action="#" class="form">
-						<div class="form-group col-sm-5">
-							<p class="alignLeft xsmall">Desktop</p>
-							<input type="time" class="form-control" required />
-						</div>
-						<div class="col-sm-5 col-sm-offset-1">
-							<p class="alignLeft xsmall">Mobile</p>
-							<img src="./assets/img/iphone-time-picker.jpg" alt="" class="picture" style="width: 50%;" />
-						</div>
-					</form>
-				</section>
-
-				<section>
-					<h2><i class="fa fa-edit"></i> Forms</h2>
-
-					<h4>The "datetime-local" type</h4>
-
-					<p class="small alignLeft clearfix">Used for datetime-local input. It's a mix of 'date' and 'time' types.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;input type=&quot;datetime-local&quot; /&gt;</code></pre>
-
-					<form action="#" class="form">
-						<div class="form-group col-sm-5">
-							<p class="alignLeft xsmall">Desktop</p>
-							<input type="datetime-local" class="form-control" required />
-						</div>
-						<div class="col-sm-5 col-sm-offset-1">
-							<p class="alignLeft xsmall">Mobile</p>
-							<img src="./assets/img/datetime-local.png" alt="" class="picture" style="width: 50%;" />
-						</div>
-					</form>
-				</section>
-
-				<section>
-					<h2><i class="fa fa-edit"></i> Forms</h2>
-
-					<h4>The "number" type</h4>
-
-					<p class="small alignLeft clearfix">Used for number input.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;input type=&quot;number&quot; step=&quot;0.5&quot; /&gt;</code></pre>
-
-					<form action="#" class="form">
-						<div class="form-group col-sm-5">
-							<p class="alignLeft xsmall">Desktop</p>
-							<input type="number" class="form-control" step="0.5" required />
-						</div>
-						<div class="col-sm-5 col-sm-offset-1">
-							<p class="alignLeft xsmall">Mobile</p>
-							<img src="./assets/img/number.png" alt="" class="picture" style="width: 50%;" />
-						</div>
-					</form>
-				</section>
-
-				<section>
-					<h2><i class="fa fa-edit"></i> Forms</h2>
-
-					<h4>The "range" type</h4>
-
-					<p class="small alignLeft clearfix">Used for range input.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;input type=&quot;range&quot; min=&quot;0&quot; max=&quot;100&quot; step=&quot;0.5&quot; /&gt;</code></pre>
-
-					<form action="#" class="form">
-						<div class="form-group col-sm-5">
-							<p class="alignLeft xsmall">Desktop</p>
-							<input type="range" class="form-control" min="0" max="100" step="0.5" required />
-						</div>
-					</form>
-				</section>
-
-				<section>
-					<h2><i class="fa fa-edit"></i> Forms</h2>
-
-					<h4>The "color" type</h4>
-
-					<p class="small alignLeft clearfix">Used for color input.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;input type=&quot;color&quot; /&gt;</code></pre>
-
-					<form action="#" class="form">
-						<div class="form-group col-sm-5">
-							<p class="alignLeft xsmall">Desktop</p>
-							<input type="color" class="form-control" required />
-						</div>
-					</form>
-				</section>
-
-				<section>
-					<h2><i class="fa fa-edit"></i> Forms</h2>
-
-					<h4>New attributes</h4>
-					<p class=" alignLeft clearfix">There are some attributes that can be used on the inputs.</p>
-
-					<ul class="small alignLeft">
-						<li><span class="fontOrange">placeholder</span> - text to be inserted as a helper;</li>
-						<li><span class="fontOrange">autofocus</span> - the focus will be on the input as soon the page loads;</li>
-						<li><span class="fontOrange">required</span> - it's required to be filled before form submission;</li>
-						<li><span class="fontOrange">pattern</span> - regexp for what is accepted on the input;</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2><i class="fa fa-edit"></i> Forms</h2>
-
-					<h4>New attributes - cont.</h4>
-					<p class=" alignLeft">Also there are some new pseudo-classes available through CSS for styling those new attributes and input states (not covered on this presentation):</p>
-
-					<ul class="small alignLeft">
-						<li><span class="fontOrange">[required]</span> - attribute selector works for styling the required ones;</li>
-						<li><span class="fontOrange">:invalid</span> - pseudo-class for styling inputs with invalid data;</li>
-						<li><span class="fontOrange">:valid</span> - pseudo-class for styling inputs with valid data;</li>
-					</ul>
-
+					<h2> Attribute Selectors</h2>
+					<h4 class="fontOrange">[attr$=value]</h4>
+					<p class="small alignLeft">Represents an element with an attribute name of attr and whose value is suffixed by "value".</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>[href$=pdf] {
+	/*css*/
+}</code></pre>
 				</section>
 				<section>
-					<h2><i class="fa fa-edit"></i> Forms</h2>
+					<h2> Attribute Selectors</h2>
+					<h4 class="fontOrange">[attr*=value]</h4>
+					<p class="small alignLeft">Represents an element with an attribute name of attr and whose value contains at least one occurrence of string "value" as substring.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>[href*="com"] {
+	/*css*/
+}</code></pre>
+				</section>
+			</section>
 
-					<h4>New attributes - Example</h4>
+			<!-- =============================================
+			Section: simbling
+			================================================== -->
+			<section>
+				<section>
+					<h2> Simbling Selectors</h2>
+					<h4 class="fontOrange">Adjacent Simbling (<span class="fontOrange">+</span>)</h4>
+					<p class="small alignLeft">This selector uses the plus sign, "+", to combine two sequences of simple selectors. The elements in the selector have the same parent, and the second one must come immediately after the first.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>h1 + p {
+	/*css*/
+}</code></pre>
+<pre class="prettyprint linenums lang-html noConvert"><code>&lt;h1&gt;Title&lt;/h1&gt;
+&lt;p&gt;matched text&lt;/p&gt;
+&lt;p&gt;unmatched text&lt;/p&gt;</code></pre>
+				</section>
+				<section>
+					<h2> Simbling Selectors</h2>
+					<h4 class="fontOrange">General Simbling (<span class="fontOrange">~</span>)</h4>
+					<p class="small alignLeft">The general sibling combinator works pretty much the same as the adjacent sibling combinator, but with the difference that the second selector doesn’t have to immediately follow the first one.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>h1 ~ p {
+	/*css*/
+}</code></pre>
+<pre class="prettyprint linenums lang-html noConvert"><code>&lt;h1&gt;Title&lt;/h1&gt;
+&lt;h2&gt;Subtitle&lt;/h2&gt;
+&lt;p&gt;matched text&lt;/p&gt;</code></pre>
+				</section>
+			</section>
 
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;input type=&quot;text&quot; id=&quot;inputTest&quot; placeholder=&quot;a text here&quot; autofocus required pattern=&quot;[a-zA-Z]{1,10}&quot; /&gt;</code></pre>
+			<!-- =============================================
+			Section: pseudo
+			================================================== -->
+			<section>
+				<section>
+					<h2> Pseudo-classes</h2>
+					<h4 class="fontOrange">:first-child</h4>
+					<p class="small alignLeft">The :first-child pseudo-class allows you to target an element that is the first child of another element.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>ul li:first-child {
+	/*css*/
+}</code></pre>
+<pre class="prettyprint linenums lang-html noConvert"><code>
+&lt;ul&gt;
+	&lt;li&gt;matched li&lt;/li&gt;
+	&lt;li&gt;li&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+				</section>
+				<section>
+					<h2> Pseudo-classes</h2>
+					<h4 class="fontOrange">:last-child</h4>
+					<p class="small alignLeft">The :last-child pseudo-class allows you to target an element that is the last child of another element.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>ul li:last-child {
+	/*css*/
+}</code></pre>
+<pre class="prettyprint linenums lang-html noConvert"><code>
+&lt;ul&gt;
+	&lt;li&gt;li&lt;/li&gt;
+	&lt;li&gt;matched li&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+				</section>
+			</section>
 
-					<pre class="prettyprint linenums lang-css noConvert"><code>
-#inputTest:invalid {
-	border:3px solid red;
+			<!-- =============================================
+			Section: structural pseudo
+			================================================== -->
+			<section>
+				<section>
+					<h2> Structural Pseudo-classes</h2>
+					<h4 class="fontOrange">:nth-child() / :nth-last-child()</h4>
+					<p class="small alignLeft">The :nth-child() pseudo-class allows you to target one or more specific children of a parent element. The :nth-last-child pseudo-class works basically as the :nth-child pseudo-class, but it starts counting the elements from the last one</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>ul li:nth-child(1) {
+	/*css*/
+}</code></pre>
+<pre class="prettyprint linenums lang-html noConvert"><code>
+&lt;ul&gt;
+	&lt;li&gt;matched li&lt;/li&gt;
+	&lt;li&gt;li&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+				</section>
+				<section>
+					<h2> Structural Pseudo-classes</h2>
+					<h4 class="fontOrange">:nth-child() / :nth-last-child()</h4>
+					<p class="small alignLeft">You can use the keywords 'odd' or 'even' and also 'n':</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>ul li:nth-child(3n+3) {
+	/*css*/
+}</code></pre>
+<pre class="prettyprint linenums lang-html noConvert"><code>
+&lt;ul&gt;
+	&lt;li&gt;li&lt;/li&gt;
+	&lt;li&gt;li&lt;/li&gt;
+	&lt;li&gt;matched li&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+					<p class="small alignLeft">(3 x 0) + 3 = 3 = 3rd Element, (3 x 1) + 3 = 6 = 6th Element, (3 x 2) + 3 = 9 = 9th Element, etc.</p>
+				</section>
+				<section>
+					<h2> Structural Pseudo-classes</h2>
+					<h4 class="fontOrange">:nth-of-type() / :nth-last-of-type()</h4>
+					<p class="small alignLeft">The :nth-of-type pseudo-class works just like the :nth-child, with the difference that it only counts children that match the element in the selector. Same with last.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>li:nth-of-type(3n+2) {
+	/*css*/
+}</code></pre>
+<pre class="prettyprint linenums lang-html noConvert"><code>
+&lt;ul&gt;
+	&lt;li&gt;li&lt;/li&gt;
+	&lt;li&gt;matched li&lt;/li&gt;
+	&lt;li&gt;li&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+				</section>
+				<section>
+					<h2> Structural Pseudo-classes</h2>
+					<h4 class="fontOrange">:first-of-type / :last-of-type</h4>
+					<p class="small alignLeft">The :first-of-type pseudo-class is used to target an element that is the first of its type within its parent. The :last-of-type pseudo-class works exactly the same, but targets the last child of its type instead.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>.post > p:first-of-type {
+	/*css*/
+}</code></pre>
+				</section>
+				<section>
+					<h2> Structural Pseudo-classes</h2>
+					<h4 class="fontOrange">:only-child</h4>
+					<p class="small alignLeft">The :only-child pseudo-class represents an element that is the only child of its parent.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>.news > p:only-child {
+	/*css*/
+}</code></pre>
+				</section>
+				<section>
+					<h2> Structural Pseudo-classes</h2>
+					<h4 class="fontOrange">:only-of-type</h4>
+					<p class="small alignLeft">The :only-of-type pseudo-class represents an element that is the only child of its parent with the same element.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>.post > img:only-of-type {
+	/*css*/
+}</code></pre>
+				</section>
+				<section>
+					<h2> Structural Pseudo-classes</h2>
+					<h4 class="fontOrange">:empty</h4>
+					<p class="small alignLeft">The :empty pseudo-class represents an element that has no content within it.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>#sidebar .box:empty {
+	/*css*/
+}</code></pre>
+				</section>
+			</section>
+			<!-- =============================================
+			Section: not
+			================================================== -->
+			<section>
+				<section>
+					<h2> Negation Pseudo-classes</h2>
+					<h4 class="fontOrange">:not()</h4>
+					<p class="small alignLeft">The negation pseudo-class, :not(), lets you target elements that do not match the selector that is represented by its argument.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>input:not([type="submit"]) {
+	/*css*/
+}</code></pre>
+				</section>
+			</section>
+			<!-- =============================================
+			Section: pseudo-elements
+			================================================== -->
+			<section>
+				<section>
+					<h2> Pseudo-Elements</h2>
+					<h4 class="fontOrange">::first-line / ::first-letter</h4>
+					<p class="small alignLeft">Pseudo-elements allow you to access elements that don’t actually exist in the HTML. <br /><br />The ::first-line pseudo-element will match the first line of a block, inline-block, table-caption or table-cell level element. The ::first-letter pseudo-element will match the first letter of a block, unless it’s preceded by some other content, like an image, on the same line.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>h1 + p::first-line {
+	/*css*/
 }
-#inputTest:valid {
+
+h1 + p::first-letter {
+	/*css*/
+}</code></pre>
+				</section>
+				<section>
+					<h2> Pseudo-Elements</h2>
+					<h4 class="fontOrange">::before / ::after</h4>
+					<p class="small alignLeft">The ::before and ::after pseudo-elements are used to insert content before or after an element’s content, purely via CSS. These elements will inherit many of the properties of the elements that they are being attached to.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>.clearfix::after {
+	content:" ";
+	display:table;
+	clear:both;
+}
+</code></pre>
+				</section>
+			</section>
+			<!-- =============================================
+			Section: new
+			================================================== -->
+			<section>
+				<section>
+					<h2> Properties</h2>
+					<h4 class="fontOrange">Vendor Prefixes</h4>
+					<p class="small alignLeft">Vendor prefixes are meant to enable the use of certain properties that are not yet stable and are for testing purposes.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>div {
+	-webkit-border-radius:8px;
+	-khtml-border-radius:8px;
+	-moz-border-radius:8px;
+	-ms-border-radius:8px;
+	-o-border-radius:8px;
+	border-radius:8px
+}</code></pre>
+				</section>
+				<section>
+					<h2> Properties</h2>
+					<h4 class="fontOrange">Multiple declarations</h4>
+					<p class="small alignLeft"></p>
+<pre class="prettyprint linenums lang-css noConvert"><code>div {
+	box-shadow:10px 10px 5px red, 10px 10px 5px blue inset;
+	background-image: url(sheep.png), url(betweengrassandsky.png);
+	background-position: center bottom, left top;
+}
+</code></pre>
+				<div style="box-shadow:10px 10px 5px red, 10px 10px 5px blue inset;background:black;border:5px solid green;">div</div>
+				</section>
+				<section>
+					<h2> Properties</h2>
+					<h4 class="fontOrange">border-radius</h4>
+					<p class="small alignLeft">Add rounded borders to the box.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>div {
+	border-radius:15px;
+	/*border-radius: radius;*/
+}
+</code></pre>
+<br />
+<br />
+				<div style="border-radius:15px;border:5px solid red;">div with cool border</div>
+				</section>
+				<section>
+					<h2> Properties</h2>
+					<h4 class="fontOrange">resize</h4>
+					<p class="small alignLeft">Used normally on form elements to enable resizing.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>textarea {
+	resize:vertical; /*none, vertical, horizontal, both*/
+}
+</code></pre>
+				<textarea name="" id="" cols="30" rows="10" style="resize:vertical;height:40px;">Only vertical</textarea>
+				<textarea name="" id="" cols="30" rows="10" style="resize:both;height:40px;">both</textarea>
+				</section>
+				<section>
+					<h2> Properties</h2>
+					<h4 class="fontOrange">gradient</h4>
+					<p class="small alignLeft">Create gradient backgrounds without use of images.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>div {
+	background: linear-gradient(to bottom, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%);
+}
+</code></pre>
+				<div style="background: linear-gradient(to bottom, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%);">div</div>
+				<br />
+				<a href="http://www.colorzilla.com/gradient-editor/">Gradient Generator</a>
+				</section>
+
+				<section>
+					<h2> Properties</h2>
+					<h4 class="fontOrange">background-size</h4>
+					<p class="small alignLeft">Change the size of the background image.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>div {
+	background: red url('/assets/img/magic.jpg') 0 0 no-repeat;
+	background-size:1050px 100px;
+}
+</code></pre>
+				<div style="background: red url('/assets/img/magic.jpg') 0 0 no-repeat; background-size:1050px 100px;">div</div>
+				</section>
+
+				<section>
+					<h2> Properties</h2>
+					<h4 class="fontOrange">text-shadow</h4>
+					<p class="small alignLeft">Create shadows on your text.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>div {
+	text-shadow: 10px 10px 10px red;
+	/*text-shadow: x y blur color;*/
+}
+</code></pre>
+				<div style="text-shadow: 10px 10px 10px red;">text with (not) cool shadow</div>
+				</section>
+				<section>
+					<h2> Properties</h2>
+					<h4 class="fontOrange">box-shadow</h4>
+					<p class="small alignLeft">Create shadows on your boxes.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>div {
+	box-shadow: 10px 10px 10px 50px red;
+	/*text-shadow: [inset] x y blur spread color;*/
+}
+</code></pre>
+<br />
+<br />
+				<div style="box-shadow: 10px 10px 10px 50px red;">div with cool shadow</div>
+				</section>
+				<section>
+					<h2> Properties</h2>
+					<h4 class="fontOrange">text-stroke</h4>
+					<p class="small alignLeft">Create shadows on your text.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>div {
+	text-stroke: 2px red;
+	/*text-stroke: width color;*/
+}
+</code></pre>
+				<div style="-webkit-text-stroke: 2px red;">text with stroke</div>
+				</section>
+				<section>
+					<h2> Properties</h2>
+					<h4 class="fontOrange">Opacity</h4>
+					<p class="small alignLeft">Change the opacity of the box.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>div {
+	opacity:.5;
+	/*opacity: 0-1;*/
+}</code></pre>
+				<div style="opacity:.5;background:red;">box with opacity</div>
+				</section>
+				<section>
+					<h2> Properties</h2>
+					<h4 class="fontOrange">transform</h4>
+					<p class="small alignLeft">Transform your element.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>div {
+	transform:translate(100px) rotate(45deg) skewX(30deg);
+	/*transform:translate(x, y) rotate( degrees ) skewX( degrees );*/
+}</code></pre>
+<br />
+
+				<div style="background:red;-webkit-transform:translate(100px) rotate(15deg) skewX(30deg);">box with transform</div><br />
+				<br />
+				<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform">CSS Transform</a>
+				</section>
+				<section>
+					<h2> Properties</h2>
+					<h4 class="fontOrange">transition</h4>
+					<p class="small alignLeft">Transition between properties.</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>a {
+	transition:all 2s ease;
+	background:red;
+}
+a:hover {
+	background:green;
+}</code></pre>
+<br />
+
+				<style>a#transition {
+	transition:all 2s ease;
+	background:red;
+	padding: 5px;
+	display: block;
+}
+a#transition:hover {
+	background:green;
+}
+</style>
+				<a href="#" id="transition">MY AWESOME LINK!</a>
+				<br />
+				<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition">CSS Transition</a>
+				</section>
+				<section>
+					<h2> Properties</h2>
+					<h4 class="fontOrange">animation</h4>
+<pre class="prettyprint linenums lang-css noConvert"><code>h1#animation {
+  animation:slidein 3s infinite;
+  background-color: red;
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+    opacity:0;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+    opacity:1;
+  }
+}</code></pre>
+				<style>h1#animation {
+  -webkit-animation:slidein 3s infinite;
+  background-color: red;
+  margin: 10px 0 0;
+}
+
+@-webkit-keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+    opacity:0;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+    opacity:1;
+  }
+}
+</style>
+				<h1 id="animation">This is an animation test!</h1>
+				<br />
+				<a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Using_CSS_animations">CSS Animations</a>
+				<a href="http://daneden.github.io/animate.css/">Animate.css</a>
+				</section>
+				<section>
+					<h2> Properties</h2>
+					<h4 class="fontOrange">animation - cont.</h4>
+				<style>h1#animation {
+  -webkit-animation:slidein 3s infinite;
+  background-color: red;
+  margin: 10px 0 0;
+}
+
+@-webkit-keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+    opacity:0;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+    opacity:1;
+
+  }
+}
+</style>
+				<h1 id="animation">This is an animation test!</h1>
+				<br />
+				<a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Using_CSS_animations">CSS Animations</a><br />
+				<a href="http://daneden.github.io/animate.css/">Animate.css</a>
+				</section>
+
+				<section>
+					<h2> Properties</h2>
+					<h4 class="fontOrange">Box-Sizing</h4>
+<pre class="prettyprint linenums lang-css noConvert"><code>div {
+	box-sizing:border-box;
+	padding:20px;
+	width:500px;
 	border:3px solid green;
 }</code></pre>
-
-					<div class="clearfix">
-						<div class="col-sm-6">
-							<p class="small alignLeft"><b>Required</b> input with pattern <em>[a-zA-Z]{1,10}</em> (any character from a-z and A-Z, nothing else) and needs to be between one and 10 characters:</p>
-						</div>
-						<div class="col-sm-6">
-							<form action="#" class="form" onsubmit="$(this).submit(function(event){event.preventDefault();});">
-								<div class="form-group">
-									<style>
-										#inputTest {
-											border:3px solid white;
-										}
-										#inputTest:invalid {
-											border:3px solid red;
-										}
-										#inputTest:valid {
-											border:3px solid green;
-										}
-									</style>
-									<input type="text" placeholder="a text here" class="form-control" required pattern="[a-zA-Z]{1,10}" id="inputTest" />
-								</div>
-							</form>
-						</div>
-					</div>
-				</section>
-			</section>
-
-			<section>
-				<section>
-					<h2><i class="fa fa-tasks"></i>  Status Indicator</h2>
-
-					<h4>The &lt;meter&gt; element</h4>
-
-					<p class="small alignLeft">The meter element represents a scalar measurement within a known range, or a fractional value; for example disk usage, the relevance of a query result, or the fraction of a voting population to have selected a particular candidate.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;meter value=&quot;50&quot; min=&quot;0&quot; max=&quot;100&quot; low=&quot;40&quot; high=&quot;90&quot; optimum=&quot;100&quot;&gt;50&lt;/meter&gt;</code></pre>
-
-					<div class="clearfix">
-						<div class="form-group col-sm-4">
-							<p class="xsmall">val 30</p>
-							<meter value="30" min="0" max="100" low="40" high="90" optimum="100">30</meter>
-						</div>
-						<div class="form-group col-sm-4">
-							<p class="xsmall">val 60</p>
-							<meter value="50" min="0" max="100" low="40" high="90" optimum="100">50</meter>
-						</div>
-						<div class="form-group col-sm-4">
-							<p class="xsmall">val 90</p>
-							<meter value="90" min="0" max="100" low="40" high="90" optimum="100">90</meter>
-						</div>
-					</div>
-
-				</section>
-				<section>
-					<h2><i class="fa fa-tasks"></i> Status Indicator</h2>
-
-					<h4>The &lt;progress&gt; element</h4>
-
-					<p class="small alignLeft">The progress element represents the completion progress of a task.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;progress max='100' value='60'&gt;&lt;span&gt;60&lt;/span&gt;% played&lt;/progress&gt;</code></pre>
-
-					<div class="clearfix">
-						<div class="">
-							<p class="xsmall">val 30</p>
-							<progress max='100' value='30'><span>0</span>% played</progress>
-						</div>
-						<div class="">
-							<p class="xsmall">val 60</p>
-							<progress max='100' value='60'><span>60</span>% played</progress>
-						</div>
-						<div class="">
-							<p class="xsmall">val 90</p>
-							<progress max='100' value='90'><span>90</span>% played</progress>
-						</div>
-					</div>
-
-				</section>
-
-				<section>
-					<h2><i class="fa fa-tasks"></i> Status Indicator</h2>
-
-					<h4>The &lt;summary&gt; and &lt;details&gt; elements</h4>
-
-					<p class="small alignLeft">The progress element represents the completion progress of a task.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert"><code>&lt;details open&gt;
-	&lt;summary&gt;Show/Hide me&lt;/summary&gt;
-	&lt;p class=&quot;xsmall&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, mollitia.&lt;/p&gt;
-&lt;/details&gt;</code></pre>
-
-					<div class="clearfix">
-						<div class="col-sm-6">
-							<details open>
-								<summary class="xsmall">Show/Hide me</summary>
-								<p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, mollitia.</p>
-							</details>
-						</div>
-						<div class="col-sm-6">
-							<details>
-								<summary class="xsmall">Show/Hide me</summary>
-								<p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, mollitia.</p>
-							</details>
-						</div>
-					</div>
-
-				</section>
-			</section>
-
-
-			<!-- =============================================
-			Section: media
-			================================================== -->
-			<section>
-				<section>
-					<h2><i class="fa fa-play-circle-o"></i> Media</h2>
-
-					<h4>The &lt;audio&gt; element</h4>
-
-					<p class="small alignLeft">This is the element which enables audio in a webpage without the need of any plugins.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert xsmall"><code>&lt;audio src=&quot;path/to/music.ext&quot; loop controls autoplay preload=&quot;metadata&quot;&gt;
-	&lt;!-- fallback here, such as Flash or some error message --&gt;
-&lt;/audio&gt;</code></pre>
-					<p class="fragment small alignLeft">Browser vendors couldn't agree with what codec to support because of patents and such, therefore each one support a different set of codecs. So you set various sources:</p>
-
-					<pre class="fragment prettyprint linenums lang-html noConvert xsmall"><code>&lt;audio loop controls autoplay preload=&quot;auto&quot;&gt;
-	&lt;source src=&quot;path/to/music.mp3&quot; /&gt;
-	&lt;source src=&quot;path/to/music.ogg&quot; /&gt;
-	&lt;source src=&quot;path/to/music.wav&quot; /&gt;
-	&lt;!-- fallback here, such as Flash or some error message --&gt;
-&lt;/audio&gt;</code></pre>
-
-
-				</section>
-				<section>
-					<h2><i class="fa fa-play-circle-o"></i> Media</h2>
-
-					<h4>The &lt;audio&gt; element - Samples:</h4>
-
-					<div class="clearfix">
-						<div class="col-sm-6 alignCenter">
-							<audio loop preload="auto" controls>
-								<source src="./assets/media/SNES_ISSSD_Menu.mp3" />
-								<!-- fallback here, such as Flash or some error message -->
-							</audio>
-							<p class="xsmall">SNES ISSSD</p>
-						</div>
-						<div class="col-sm-6 alignCenter">
-							<audio loop preload="auto" controls>
-								<source src="./assets/media/SNES_MMX_OpeningStage.mp3" />
-								<!-- fallback here, such as Flash or some error message -->
-							</audio>
-							<p class="xsmall">SNES MegamanX</p>
-						</div>
-					</div>
-					<br />
-					<br />
-
-					<h4>The &lt;audio&gt; element - Codec support:</h4>
-
-					<p class="small alignLeft">This is the table of codecs currently supported by each browser:</p>
-
-					<ul class="small alignLeft">
-						<li><span class="fontOrange">MP3</span> - Chrome, Safari, IE9;</li>
-						<li><span class="fontOrange">WAV</span> - Chrome, Firefox, Safari, Opera;</li>
-						<li><span class="fontOrange">OGG</span> - Chrome, Firefox, Opera;</li>
-					</ul>
-				</section>
-
-				<!-- video -->
-				<section>
-					<h2><i class="fa fa-play-circle-o"></i> Media</h2>
-
-					<h4>The &lt;video&gt; element</h4>
-
-					<p class="small alignLeft">This is the element which enables video in a webpage without the need of any plugins.</p>
-
-					<pre class="prettyprint linenums lang-html noConvert xsmall"><code>&lt;video src=&quot;path/to/video.ext&quot; loop controls autoplay preload=&quot;metadata&quot; style=&quot;width:100px;height:100px;&quot; poster=&quot;path/to/imageposter.ext&quot; &gt;
-	&lt;!-- fallback here, such as Flash or some error message --&gt;
-&lt;/video&gt;</code></pre>
-					<p class="fragment small alignLeft">The same browser agreement shows up on video, the same way as audio, each one support a different set of codecs. So you set various sources:</p>
-
-					<pre class="fragment prettyprint linenums lang-html noConvert xsmall"><code>&lt;video loop controls autoplay preload=&quot;metadata&quot; style=&quot;width:100px;height:100px;&quot; poster=&quot;path/to/imageposter.ext&quot; &gt;
-	&lt;source src=&quot;path/to/video.mp4&quot; /&gt;
-	&lt;source src=&quot;path/to/video.webm&quot; /&gt;
-	&lt;source src=&quot;path/to/video.ogv&quot; /&gt;
-	&lt;!-- fallback here, such as Flash or some error message --&gt;
-&lt;/video&gt;</code></pre>
-				</section>
-				<section>
-					<h2><i class="fa fa-play-circle-o"></i> Media</h2>
-
-					<h4>The &lt;video&gt; element - cont.</h4>
-
-					<div class="clearfix">
-						<div class=" alignCenter">
-							<video loop preload="none" controls loop style="width: 540px;height: 408px;">
-								<source src="./assets/media/001_SaintSeiya.mp4" />
-								<!-- fallback here, such as Flash or some error message -->
-							</video>
-						</div>
-					</div>
-				</section>
-
-				<section>
-					<h2><i class="fa fa-play-circle-o"></i> Media</h2>
-
-					<h4>The &lt;audio&gt; element - Codec support:</h4>
-
-					<p class="small alignLeft">This is the table of codecs currently supported by each browser:</p>
-
-					<ul class="small alignLeft">
-						<li><span class="fontOrange">MP4</span> - Chrome, Safari, IE9;</li>
-						<li><span class="fontOrange">WebM</span> - Chrome, Firefox, Opera;</li>
-						<li><span class="fontOrange">OGG</span> - Chrome, Firefox, Opera;</li>
-					</ul>
+				<p class="small alignLeft">Default box model: width = content</p>
+				<div style="-webkit-box-sizing:content-box;box-sizing:content-box;background:red;border:3px solid green;padding:20px;margin:10px;width:500px;">without</div>
+				<p class="small alignLeft">border-box box model: width = content+padding+border</p>
+				<div style="-webkit-box-sizing:border-box;box-sizing:border-box;background:green;border:3px solid red;padding:20px;margin:10px;width:500px;margin-left:33px">with</div>
 				</section>
 			</section>
 
 
 
 			<!-- =============================================
-			Section: features usage
+			Section: specificity
 			================================================== -->
 			<section>
-				<h2><i class="fa fa-check-square"></i> Conclusion</h2>
+				<section>
+					<h2> Selectors - Specificity</h2>
+					<p class="alignLeft">Selectors have different 'ranks' in the CSS, so the latest selectors on the file will not always override the previous ones for the same elements. <br />
+					<br />
+So how do you calculate the specificity of a particular selector? Take into account that specificity will be represented as four numbers separated by commas, like: <br />
+<span class="fontOrange">1, 1, 1, 1</span> or <span class="fontOrange">0, 2, 0, 1</span></p>
+				</section>
+				<section>
+					<h2> Selectors - Specificity</h2>
+<pre class="prettyprint linenums lang-css noConvert"><code>(a), (b), (c), (d)</code></pre>
+					<ul>
+						<li class="small">(a) is always zero, unless there is a <span class="fontOrange">style attribute</span> applied to that element within the markup itself;</li>
+						<li class="small">(b) is the sum of the number of <span class="fontOrange">IDs</span> in that selector</li>
+						<li class="small">(c) is the sum of other <span class="fontOrange">attribute selectors</span> and <span class="fontOrange">pseudo-classes</span> in that selector. Classes (.example) and attribute selectors (eg. li[id=red]) are included here.</li>
+						<li class="small">(d) counts the <span class="fontOrange">elements</span> (like table, p, div, etc.) and <span class="fontOrange">pseudo-elements</span> (like :first-line)</li>
+						<li class="small">The <span class="fontOrange">universal selector</span> (*) has a specificity of zero</li>
+					</ul>
+				</section>
+				<section>
+					<h2> Selectors - Specificity</h2>
+					<p class="small alignLeft">Examples:</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>#sidebar h2 — 0, 1, 0, 1
+h2.title — 0, 0, 1, 1
+h2 + p — 0, 0, 0, 2
+#sidebar p:first-line — 0, 1, 0, 2</code></pre>
 
-				<h4>Browser vs Feature</h4>
 
-				<p class="small alignLeft"></p>
+					<p class="small alignLeft">From the following selectors, the first one is the one who will be applied to the element, because it has the higher specificity:</p>
+<pre class="prettyprint linenums lang-css noConvert"><code>#sidebar p#first { color: red; } — 0, 2, 0, 1
+#sidebar p:first-line { color: blue; } — 0, 1, 0, 2</code></pre>
 
-				<ul class="small alignLeft">
-					<li><span class="">HTML5 Please</span></li>
-					<li><span class="">Can I Use</span></li>
-					<li><span class="">HTML5Shiv/shim</span></li>
-					<li><span class="">Modernizr/Yepnope</span></li>
-				</ul>
+				</section>
 			</section>
+
+
+
+
+			<!-- =============================================
+			Section: conclusion
+			================================================== -->
 			<section>
 				<h2><i class="fa fa-check-square"></i> Conclusion</h2>
 				<br />
-				<img src="./assets/img/one.jpg" class="noStyle" style="max-height: none; max-width: none; width: 400px; height: 400px;" width="400" height="400" />
+				<img src="./assets/img/conclusion.jpg" class="noStyle" style="max-height: none; max-width: none; width: 400px; height: 400px;" width="400" height="400" />
 			</section>
 			<section>
 				<h2><i class="fa fa-pencil"></i> Learn more</h2>
 				<br />
 				<ul class="small alignLeft">
 					<li class="visible" >
-						<a href="http://diveintohtml5.info/">Dive into HTML5</a>
+						<a href="http://css3generator.com/">CSS3 Generator</a>
 					</li>
 					<li class="visible" >
-						<a href="http://www.w3.org/TR/html5-diff/">W3C Differences from HTML4</a>
+						<a href="http://coding.smashingmagazine.com/2009/08/17/taming-advanced-css-selectors/">Taming advanced CSS selectors</a>
 					</li>
 					<li class="visible" >
-						<a href="https://rawgithub.com/whatwg/html-differences/master/Overview.html"><abbr title="Web Hypertext Application Technology Working Group">WHATWG</abbr> HTML5 Differences</a>
+						<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition">CSS transitions</a>
 					</li>
 					<li class="visible" >
-						<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html"><abbr title="Web Hypertext Application Technology Working Group">WHATWG</abbr> Text Semantic</a>
+						<a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Using_CSS_animations">CSS Animations</a>
 					</li>
 					<li class="visible" >
-						<a href="http://www.html5rocks.com/en/">HTML5Rocks</a>
+						<a href="http://css-tricks.com/how-nth-child-works/">How NTH-CHILD works</a>
 					</li>
 					<li class="visible" >
-						<a href="http://www.html5doctor.com/">HTML5Doctor</a>
+						<a href="http://css-tricks.com/snippets/css/a-guide-to-flexbox/"><span class="fontOrange">*BONUS*</span> Complete Guide to Flexbox</a>
 					</li>
-					<li class="visible" >
-						<a href="http://www.html5rocks.com/en/">HTML5Rocks</a>
-						|
-						<a href="http://slides.html5rocks.com/">HTML5Rocks Slides/Presentation</a>
-					</li>
-					<li class="visible" >
-						<a href="http://glazkov.com/2011/01/14/what-the-heck-is-shadow-dom/"><span class="fontOrange">*BONUS*</span> Shadow DOM explained</a>
-					</li>
-
-
 				</ul>
 
 			</section>
@@ -971,7 +732,7 @@
 				<br />
 				<br />
 
-				<p class="alignCenter">Will be given after the CSS3 and Responsive Design talks, as a mix of the 3 presentations!</p>
+				<p class="alignCenter">Will be given after the Responsive Design talk, as a mix of the 3 presentations!</p>
 
 			</section>
 		</div>

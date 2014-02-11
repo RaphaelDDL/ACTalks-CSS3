@@ -29,7 +29,7 @@ Represents an element with an attribute name of attr and whose value is exactly 
 Represents an element with an attribute name of attr whose value is a whitespace-separated list of words, one of which is exactly "value".
 
 [attr|=value]
-Represents an element with an attribute name of attr. Its value can be exactly “value” or can begin with “value” immediately followed by “-” (U+002D). It can be used for language subcode matches.
+Represents an element with an attribute name of attr. Its value can be exactly "value" or can begin with "value" immediately followed by "-" (U+002D). It can be used for language subcode matches.
 
 [attr^=value]
 Represents an element with an attribute name of attr and whose value is prefixed by "value".
@@ -45,7 +45,7 @@ Represents an element with an attribute name of attr and whose value contains at
 Simbling Selectors
 ====================
 + (adjacent)
-This selector uses the plus sign, “+”, to combine two sequences of simple selectors. The elements in the selector have the same parent, and the second one must come immediately after the first.
+This selector uses the plus sign, "+", to combine two sequences of simple selectors. The elements in the selector have the same parent, and the second one must come immediately after the first.
 
 ~ (general)
 The general sibling combinator works pretty much the same as the adjacent sibling combinator, but with the difference that the second selector doesn’t have to immediately follow the first one.
@@ -150,3 +150,4 @@ http://www.colorzilla.com/gradient-editor/
 http://coding.smashingmagazine.com/2009/08/17/taming-advanced-css-selectors/
 https://developer.mozilla.org/en-US/docs/Web/CSS/transition
 https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Using_CSS_animations
+http://css-tricks.com/how-nth-child-works/
